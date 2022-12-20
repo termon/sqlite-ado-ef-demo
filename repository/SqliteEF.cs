@@ -85,6 +85,7 @@ public class SqliteEF : ISqliteDb
             return student;
         }
     }
+    
     public Student createStudent(string name)
     {
         using (var db = new Database()) 

@@ -70,15 +70,16 @@ public class SqliteAdo : ISqliteDb
 
     public Student createStudent(int id, string name)
     {
-        using var db = new SQLiteConnection(ConnectionString); 
-        
+        using var db = new SQLiteConnection(ConnectionString);         
         db.Open();
+
         using var cmd = db.CreateCommand();
         cmd.CommandText = "INSERT INTO students(id, name) VALUES($id,$name)";
         cmd.Parameters.AddWithValue("$id", id);
         cmd.Parameters.AddWithValue("$name", name);
         cmd.Prepare();
         cmd.ExecuteNonQuery();       
+        
         db.Close();
 
         return getStudentById(id);
@@ -87,13 +88,14 @@ public class SqliteAdo : ISqliteDb
     public Student createStudent(string name)
     {
         using var db = new SQLiteConnection(ConnectionString); 
-        
         db.Open();
+        
         using var cmd = db.CreateCommand();
         cmd.CommandText = "INSERT INTO students(name) VALUES($name)"; 
         cmd.Parameters.AddWithValue("$name", name);
         cmd.Prepare();
         cmd.ExecuteNonQuery();
+
         var id = (int)db.LastInsertRowId;
         db.Close();
         return getStudentById(id);
@@ -102,7 +104,6 @@ public class SqliteAdo : ISqliteDb
     public void CreateDatabase()
     {
         using var db = new SQLiteConnection(ConnectionString);
-
         db.Open();
         
         using var cmd = db.CreateCommand();
@@ -110,6 +111,7 @@ public class SqliteAdo : ISqliteDb
         cmd.ExecuteNonQuery();
         cmd.CommandText = @"CREATE TABLE Students(id INTEGER PRIMARY KEY, name TEXT)";
         cmd.ExecuteNonQuery();
+        
         db.Close();
     }
     
