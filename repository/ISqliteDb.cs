@@ -1,4 +1,8 @@
 
+using models;
+
+namespace repository;
+
 public interface ISqliteDb 
 {
 

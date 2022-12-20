@@ -2,13 +2,17 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System.Linq;
 
+using models;
+
+namespace repository;
+
 public class SqliteEF : ISqliteDb
 {
 
     private Database db;
     private string ConnectionString; 
 
-    class Database : DbContext
+    private class Database : DbContext
     {
         public DbSet<Student> Students { get; set;}
 

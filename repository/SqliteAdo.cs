@@ -1,4 +1,7 @@
 using System.Data.SQLite;
+using models;
+
+namespace repository;
 
 public class SqliteAdo : ISqliteDb
 {

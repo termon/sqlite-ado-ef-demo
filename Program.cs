@@ -1,6 +1,9 @@
 ﻿
-ISqliteDb db = new SqliteAdo("Data Source=sms.db"); 
-//ISqliteDb db = new SqliteEF("Data Source=sms.db");
+using repository;
+
+
+//ISqliteDb db = new SqliteAdo("Data Source=sms.db"); 
+ISqliteDb db = new SqliteEF("Data Source=sms.db");
 
 db.CreateDatabase();
 
