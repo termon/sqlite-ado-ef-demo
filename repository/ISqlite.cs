@@ -3,7 +3,7 @@ using models;
 
 namespace repository;
 
-public interface ISqliteDb 
+public interface ISqlite 
 {
 
     public void CreateDatabase();

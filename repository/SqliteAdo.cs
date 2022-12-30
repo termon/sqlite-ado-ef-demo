@@ -3,7 +3,7 @@ using models;
 
 namespace repository;
 
-public class SqliteAdo : ISqliteDb
+public class SqliteAdo : ISqlite
 {
     public  string ConnectionString; 
     

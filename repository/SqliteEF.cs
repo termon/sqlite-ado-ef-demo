@@ -6,7 +6,7 @@ using models;
 
 namespace repository;
 
-public class SqliteEF : ISqliteDb
+public class SqliteEF : ISqlite
 {
 
     private Database db;
