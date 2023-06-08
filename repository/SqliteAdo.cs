@@ -1,20 +1,20 @@
 using System.Data.SQLite;
-using models;
+using Models;
 
-namespace repository;
+namespace Repository;
 
 public class SqliteAdo : ISqlite
 {
-    public  string ConnectionString; 
+    private readonly string connectionString; 
     
     public SqliteAdo(string connection) 
     {
-        this.ConnectionString = connection;
+        this.connectionString = connection;
     }
 
-    public void deleteAllStudents()
+    public void DeleteAllStudents()
     {
-        using var db = new SQLiteConnection(ConnectionString); 
+        using var db = new SQLiteConnection(connectionString); 
         db.Open();
         using var cmd = db.CreateCommand();
         cmd.CommandText = @"DELETE FROM students";           
@@ -22,9 +22,9 @@ public class SqliteAdo : ISqlite
         db.Close();
     }
 
-    public bool deleteStudent(int id)
+    public bool DeleteStudent(int id)
     {
-        using var db = new SQLiteConnection(ConnectionString); 
+        using var db = new SQLiteConnection(connectionString); 
         db.Open();
         using var cmd = db.CreateCommand();
         cmd.CommandText = @"DELETE FROM students WHERE id=$id";  
@@ -34,9 +34,9 @@ public class SqliteAdo : ISqlite
         return r == 1;
     }
 
-    public List<Student> getAllStudents()
+    public List<Student> GetAllStudents()
     {
-        using var db = new SQLiteConnection(ConnectionString); 
+        using var db = new SQLiteConnection(connectionString); 
         
         db.Open();
     
@@ -50,9 +50,9 @@ public class SqliteAdo : ISqlite
         return results;
     }
 
-    public Student getStudentById(int id)
+    public Student GetStudentById(int id)
     {
-        using var db = new SQLiteConnection(ConnectionString); 
+        using var db = new SQLiteConnection(connectionString); 
         db.Open();
 
         var results = new List<Student>();
@@ -68,9 +68,9 @@ public class SqliteAdo : ISqlite
         return result;
     }
 
-    public Student createStudent(int id, string name)
+    public Student CreateStudent(int id, string name)
     {
-        using var db = new SQLiteConnection(ConnectionString);         
+        using var db = new SQLiteConnection(connectionString);         
         db.Open();
 
         using var cmd = db.CreateCommand();
@@ -82,12 +82,12 @@ public class SqliteAdo : ISqlite
         
         db.Close();
 
-        return getStudentById(id);
+        return GetStudentById(id);
     }
 
-    public Student createStudent(string name)
+    public Student CreateStudent(string name)
     {
-        using var db = new SQLiteConnection(ConnectionString); 
+        using var db = new SQLiteConnection(connectionString); 
         db.Open();
         
         using var cmd = db.CreateCommand();
@@ -98,12 +98,12 @@ public class SqliteAdo : ISqlite
 
         var id = (int)db.LastInsertRowId;
         db.Close();
-        return getStudentById(id);
+        return GetStudentById(id);
     }
     
     public void CreateDatabase()
     {
-        using var db = new SQLiteConnection(ConnectionString);
+        using var db = new SQLiteConnection(connectionString);
         db.Open();
         
         using var cmd = db.CreateCommand();

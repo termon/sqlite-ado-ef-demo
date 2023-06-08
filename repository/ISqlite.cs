@@ -1,22 +1,22 @@
 
-using models;
+using Models;
 
-namespace repository;
+namespace Repository;
 
 public interface ISqlite 
 {
 
     public void CreateDatabase();
     
-    public void deleteAllStudents();
+    public void DeleteAllStudents();
 
-    public bool deleteStudent(int id);
+    public bool DeleteStudent(int id);
     
-    public List<Student> getAllStudents();
+    public List<Student> GetAllStudents();
 
-    public Student getStudentById(int id);
+    public Student GetStudentById(int id);
 
-    public Student createStudent(int id, string name);
-    public Student createStudent(string name);       
+    public Student CreateStudent(int id, string name);
+    public Student CreateStudent(string name);       
 
 }
