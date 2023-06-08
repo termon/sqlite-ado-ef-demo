@@ -1,4 +1,6 @@
-using System.Data.SQLite;
+using System.Data.Common;
+using Microsoft.Data.Sqlite;
+
 using Models;
 
 namespace Repository;
@@ -14,7 +16,7 @@ public class SqliteAdo : ISqlite
 
     public void DeleteAllStudents()
     {
-        using var db = new SQLiteConnection(connectionString); 
+        using var db = new SqliteConnection(connectionString); 
         db.Open();
         using var cmd = db.CreateCommand();
         cmd.CommandText = @"DELETE FROM students";           
@@ -24,7 +26,7 @@ public class SqliteAdo : ISqlite
 
     public bool DeleteStudent(int id)
     {
-        using var db = new SQLiteConnection(connectionString); 
+        using var db = new SqliteConnection(connectionString); 
         db.Open();
         using var cmd = db.CreateCommand();
         cmd.CommandText = @"DELETE FROM students WHERE id=$id";  
@@ -36,7 +38,7 @@ public class SqliteAdo : ISqlite
 
     public List<Student> GetAllStudents()
     {
-        using var db = new SQLiteConnection(connectionString); 
+        using var db = new SqliteConnection(connectionString); 
         
         db.Open();
     
@@ -52,7 +54,7 @@ public class SqliteAdo : ISqlite
 
     public Student GetStudentById(int id)
     {
-        using var db = new SQLiteConnection(connectionString); 
+        using var db = new SqliteConnection(connectionString); 
         db.Open();
 
         var results = new List<Student>();
@@ -70,7 +72,7 @@ public class SqliteAdo : ISqlite
 
     public Student CreateStudent(int id, string name)
     {
-        using var db = new SQLiteConnection(connectionString);         
+        using var db = new SqliteConnection(connectionString);         
         db.Open();
 
         using var cmd = db.CreateCommand();
@@ -87,7 +89,7 @@ public class SqliteAdo : ISqlite
 
     public Student CreateStudent(string name)
     {
-        using var db = new SQLiteConnection(connectionString); 
+        using var db = new SqliteConnection(connectionString); 
         db.Open();
         
         using var cmd = db.CreateCommand();
@@ -96,14 +98,17 @@ public class SqliteAdo : ISqlite
         cmd.Prepare();
         cmd.ExecuteNonQuery();
 
-        var id = (int)db.LastInsertRowId;
+        // obtain id of last row inserted
+        cmd.CommandText = @"select last_insert_rowid()";
+        var id = (long)cmd.ExecuteScalar();  
+          
         db.Close();
-        return GetStudentById(id);
+        return GetStudentById((int)id);
     }
     
     public void CreateDatabase()
     {
-        using var db = new SQLiteConnection(connectionString);
+        using var db = new SqliteConnection(connectionString);
         db.Open();
         
         using var cmd = db.CreateCommand();

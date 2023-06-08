@@ -1,19 +1,20 @@
 ﻿
 using Repository;
 
-
-ISqlite db = new SqliteAdo("Data Source=sms.db"); 
-//ISqlite db = new SqliteEF("Data Source=sms.db");
+//ISqlite db = new SqliteAdo("Data Source=sms.db"); 
+ISqlite db = new SqliteEF("Data Source=sms.db");
 
 db.CreateDatabase();
 
 Console.WriteLine("Creating Students...");
-var s1 = db.CreateStudent(1, "Homer Simpson");
-var s2 = db.CreateStudent(2, "Marge Simpson");
-var s3 = db.CreateStudent(3, "Bart Simpson");
-var s4 = db.CreateStudent(4, "Lisa Simpson");
-var s5 = db.CreateStudent(5, "Maggie Simpson");
-var s6 = db.CreateStudent(6, "Mr Burns");
+var s1 = db.CreateStudent("Homer Simpson");
+var s2 = db.CreateStudent("Marge Simpson");
+var s3 = db.CreateStudent("Bart Simpson");
+var s4 = db.CreateStudent("Lisa Simpson");
+var s5 = db.CreateStudent("Maggie Simpson");
+var s6 = db.CreateStudent("Mr Burns");
+var s7 = db.CreateStudent("Barney");
+
 
 Console.WriteLine("Retrieving Students...");
 var students = db.GetAllStudents();
